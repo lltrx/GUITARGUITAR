@@ -124,7 +124,7 @@ export default function Orders() {
 				<h1 className='text-4xl'>Orders</h1>
 				<br></br>
 				<input
-					className='text-black rounded-xl px-4'
+					className='w-4/5 h-14 border-b-2 border-gray-300 text-gray-900 transition-all focus:outline-none focus:w-full focus:border-2 focus:border-secondary rounded-3xl p-6'
 					onChange={handleChange}
 					type='text'
 					placeholder='Search product name...'
