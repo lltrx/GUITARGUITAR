@@ -4,6 +4,7 @@ import { motion, useScroll } from 'framer-motion';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Order } from '../utils/types';
+import Loyalty from '@/components/loyalty';
 import Image from 'next/image';
 
 export default function Orders() {
@@ -100,7 +101,7 @@ export default function Orders() {
 						setExpandedOrder(order.Id);
 					}
 				}}
-				status={order.Status}
+				status={order.OrderStatus}
 				orderDate={order.Date}
 				deliveryAddress={order.DeliveryAddress}
 				total={order.Total}
@@ -143,7 +144,8 @@ export default function Orders() {
 				</div>
 			</div>
 			<div className='flex flex-col justify-center items-center'>
-				<motion.div
+	      <Loyalty showBtns />
+			<motion.div
 					className='flex flex-col justify-center items-center'
 					initial='easeIn'
 					animate={inputAnimationState}
