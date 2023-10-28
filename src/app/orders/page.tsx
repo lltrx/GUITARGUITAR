@@ -1,62 +1,84 @@
 "use client"
 import OrderCard from '../components/orderCard'
 import { motion } from "framer-motion";
-import React from "react";
-
+import React from 'react'
+import { useState, useEffect } from 'react'
+import { Order } from '../utils/types'
 
 export default function Orders() {
+  const [orders, setOrders] = useState<Array<Order>>([]);
+  const [query, setQuery] = useState('');
+
+  //Our search filter function
+  const searchFilter = (array: Array<Order>) => {
+    const filtered = array.filter(
+      (order) => order.Products.filter(
+        (product) => product.ItemName.toLowerCase().includes(query.toLowerCase())
+      ).length > 0
+    )
+    return filtered;
+  }
+
+  //Applying our search filter function to our array of countries recieved from the API
+  const filtered = searchFilter(orders)
+
+  //Handling the input on our search bar
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value)
+  }
+
+  useEffect(() => {
+    getOrders();
+  }, []);
+
+  const getOrders = async () => {
+    const response = await fetch('api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-type':'application/json'},
+      body: JSON.stringify({
+        "customerID": "9833" // localStorage.getItem('user.CustomerId')
+      })
+    })
+    const order: Array<Order> = await response.json();
+    setOrders(order);
+  }
+  
+  const draw = {
+    hidden: { pathLength: 0.5, opacity: 1 },
+    visible: (i: number) => {
+      const delay = 1 + i * 0.5;
+      return {
+        pathLength: 2,
+        opacity: 1,
+        transition: {
+          pathLength: { delay, type: "spring", duration: 1.5, bounce: 5 },
+          opacity: { delay, duration: 0.01 }
+        }
+      };
+    }
+  };
+
+  const ordersList = filtered.map((order, i) => (
+    <OrderCard
+      key={i}
+      orderNumber={order.Id}
+      status={order.OrderStatus}
+      orderDate={order.DateCreated}
+      deliveryAddress={order.ShippingAddress.street_address}
+      total={order.OrderTotal}
+    />
+  ));
+
   return (
     <div className='flex flex-col justify-center items-center'>
       <h1 className='text-4xl'>Orders</h1>
       <br></br>
-      <div className='relative'>
-        <motion.svg
-          width='100%'
-          height='100%'
-          viewBox='0 0 200 200'
-          className='absolute top-0 left-0'
-        >
-          <motion.rect
-            x='10'
-            y='10'
-            width='180'
-            height='180'
-            stroke='#ff0055'
-            strokeWidth='2'
-            fill='transparent'
-            variants={draw}
-          />
-        </motion.svg>
-        <motion.div
-          className='relative z-10'
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          <OrderCard
-            orderNumber='123456'
-            status='Preparing'
-            orderDate='2021-06-01'
-            deliveryAddress='123 Fake Street'
-            total='10.00'
-          />
-        </motion.div>
+      <input className='text-black rounded-xl px-4' onChange={handleChange} type='text' placeholder='Search product name...'/>
+      <br></br>
+      <div>
+        {ordersList}
       </div>
     </div>
   );
 }
-
-const draw = {
-  hidden: { pathLength: 0.5, opacity: 1 },
-  visible: (i: number) => {
-    const delay = 1 + i * 0.5;
-    return {
-      pathLength: 2,
-      opacity: 1,
-      transition: {
-        pathLength: { delay, type: "spring", duration: 1.5, bounce: 5 },
-        opacity: { delay, duration: 0.01 }
-      }
-    };
-  }
-};
