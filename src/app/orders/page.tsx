@@ -1,35 +1,39 @@
-'use client'
-import OrderCard from '../components/orderCard'
-import { motion } from "framer-motion";
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { Order } from '../utils/types'
+'use client';
+import OrderCard from '../components/orderCard';
+import { motion, useScroll } from 'framer-motion';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { Order } from '../utils/types';
 
 export default function Orders() {
-  const [orders, setOrders] = useState<Array<Order>>([]);
-  const [query, setQuery] = useState('');
+	const [orders, setOrders] = useState<Array<Order>>([]);
+	const [query, setQuery] = useState('');
+	const [expandedOrder, setExpandedOrder] = useState<number | null>(null);
+	const containerRef = React.useRef(null);
+	const { scrollYProgress } = useScroll(containerRef);
 
-  //Our search filter function
-  const searchFilter = (array: Array<Order>) => {
-    const filtered = array.filter(
-      (order) => order.Products.filter(
-        (product) => product.ItemName.toLowerCase().includes(query.toLowerCase())
-      ).length > 0
-    )
-    return filtered;
-  }
+	//Our search filter function
+	const searchFilter = (array: Array<Order>) => {
+		const filtered = array.filter(
+			(order) =>
+				order.Products.filter((product) =>
+					product.ItemName.toLowerCase().includes(query.toLowerCase()),
+				).length > 0,
+		);
+		return filtered;
+	};
 
-  //Applying our search filter function to our array of countries recieved from the API
-  const filtered = searchFilter(orders)
+	//Applying our search filter function to our array of countries recieved from the API
+	const filtered = searchFilter(orders);
 
-  //Handling the input on our search bar
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value)
-  }
+	//Handling the input on our search bar
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setQuery(e.target.value);
+	};
 
-  useEffect(() => {
-    getOrders();
-  }, []);
+	useEffect(() => {
+		getOrders();
+	}, []);
 
   const getOrders = async () => {
 
@@ -54,34 +58,82 @@ export default function Orders() {
   }
   
 
-  const ordersList = filtered.map((order, i) => (
-    <OrderCard
-      key={i}
-      orderNumber={order.Id}
-      status={order.OrderStatus}
-      orderDate={order.DateCreated}
-      deliveryAddress={order.ShippingAddress.street_address}
-      total={order.OrderTotal}
-    />
-  ));
+	const expandInOut = {
+		collapsed: {
+			scale: 1,
+			y: 0,
+			transition: { duration: 0.3, ease: 'easeOut' },
+		},
+		expanded: {
+			scale: 2,
+			y: 0,
+			transition: { duration: 0.3, ease: 'easeInOut' },
+		},
+		top: { y: '-150%', transition: { duration: 0.3, ease: 'easeInOut' } }, // Moves the card further to the top
+		bottom: { y: '150%', transition: { duration: 0.3, ease: 'easeInOut' } }, // Moves the card further to the bottom
+	};
 
-  return (
-    <div className='flex flex-col justify-center items-center'>
-      <h1 className='text-4xl'>Orders</h1>
-      <br></br>
-      <input className='text-black rounded-xl px-4' onChange={handleChange} type='text' placeholder='Search product name...'/>
-      <br></br>
-      <motion.div className='flex flex-col gap-10 justify-between'
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.8,
-          delay: 0.5,
-          ease: [0, 0.71, 0.2, 1.01],
-        }}
-      >
-        {ordersList}
-      </motion.div>
-    </div>
-  );
+	const ordersList = filtered.map((order, i) => {
+		let animationState;
+		if (expandedOrder === order.Id) {
+			animationState = 'expanded';
+		} else if (expandedOrder !== null) {
+			const expandedIndex = filtered.findIndex((o) => o.Id === expandedOrder);
+			animationState = i < expandedIndex ? 'top' : 'bottom';
+		} else {
+			animationState = 'collapsed';
+		}
+
+		return (
+			<OrderCard
+				key={i}
+				orderNumber={order.Id}
+				initial='collapsed'
+				animate={animationState}
+				variants={expandInOut}
+				onClick={() => {
+					if (expandedOrder === order.Id) {
+						setExpandedOrder(null);
+					} else {
+						setExpandedOrder(order.Id);
+					}
+				}}
+				status={order.Status}
+				orderDate={order.Date}
+				deliveryAddress={order.DeliveryAddress}
+				total={order.Total}
+				products={order.Products}
+			/>
+		);
+	});
+
+	const inputAnimationState = expandedOrder !== null ? 'easeOut' : 'easeIn';
+
+	const inputVariants = {
+		easeIn: { opacity: 1, transition: { duration: 0.3, ease: 'easeIn' } },
+		easeOut: { opacity: 0, transition: { duration: 0.3, ease: 'easeOut' } },
+	};
+
+	return (
+		<div className='flex flex-col justify-center items-center'>
+			<motion.div
+      className='flex flex-col justify-center items-center'
+				initial='easeIn'
+				animate={inputAnimationState}
+				variants={inputVariants}>
+				<h1 className='text-4xl'>Orders</h1>
+				<br></br>
+				<input
+					className='text-black rounded-xl px-4'
+					onChange={handleChange}
+					type='text'
+					placeholder='Search product name...'
+				/>
+			</motion.div>
+			<br></br>
+			<motion.div className='flex flex-col gap-10 justify-between'>
+				{ordersList}
+			</motion.div>
+		</div>
+	);
 }
