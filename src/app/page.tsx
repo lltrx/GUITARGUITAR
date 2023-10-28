@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
+import {motion} from "framer-motion"
 
 export default function Login() {
 
@@ -9,6 +10,13 @@ export default function Login() {
     email: '',
     password: ''
   })
+
+
+  useEffect(() => {
+    if (localStorage.getItem('user') !== null || localStorage.getItem('user') !== undefined) {
+      localStorage.removeItem('user')
+    }
+  }, [])
 
   const handleChange = (e) => {
     setFormState({
