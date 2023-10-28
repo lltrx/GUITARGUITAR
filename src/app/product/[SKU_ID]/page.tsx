@@ -1,113 +1,218 @@
-import Image from 'next/image'
+import ProductRadioGroup from "@/components/radio-group";
+import { Radio, RadioGroup, Stack } from "@chakra-ui/react";
+import Image from "next/image";
+import TailwindRadio from "./tw-radio";
 
-export default function Product() {
+const placeholderImg =
+  "https://images.guitarguitar.co.uk/cdn/large/170/170809313186008f.jpg";
+
+const Badge = ({ text }: { text: string }) => (
+  <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-orange-600 shadow shadow-white">
+    {text}
+  </div>
+);
+
+const Spacer = ({ variant }: { variant?: "sm" | "md" }) => (
+  <div className={variant ? (variant === "md" ? "m-10" : "m-5") : "m-10"} />
+);
+
+const Button = ({ className, text }: { className?: string; text?: string }) => (
+  <button
+    className={`inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background bg-blue-500 text-white hover:bg-blue-500/90 h-12 px-4 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 transition-all text-lg ${className}`}
+  >
+    {text ?? "Button"}
+  </button>
+);
+
+const product = {
+  name: "Basic Tee 6-Pack",
+  price: "$192",
+  href: "#",
+  breadcrumbs: [
+    { id: 1, name: "Men", href: "#" },
+    { id: 2, name: "Clothing", href: "#" },
+  ],
+  images: [
+    {
+      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
+      alt: "Two each of gray, white, and black shirts laying flat.",
+    },
+    {
+      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg",
+      alt: "Model wearing plain black basic tee.",
+    },
+    {
+      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg",
+      alt: "Model wearing plain gray basic tee.",
+    },
+    {
+      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg",
+      alt: "Model wearing plain white basic tee.",
+    },
+  ],
+  colors: [
+    { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
+    { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
+    { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
+  ],
+  sizes: [
+    { name: "XXS", inStock: false },
+    { name: "XS", inStock: true },
+    { name: "S", inStock: true },
+    { name: "M", inStock: true },
+    { name: "L", inStock: true },
+    { name: "XL", inStock: true },
+    { name: "2XL", inStock: true },
+    { name: "3XL", inStock: true },
+  ],
+  description:
+    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
+  highlights: [
+    "Hand cut and sewn locally",
+    "Dyed with our proprietary colors",
+    "Pre-washed & pre-shrunk",
+    "Ultra-soft 100% cotton",
+  ],
+  details:
+    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
+};
+
+export default async function Orders() {
+  const response = (await await fetch("http://localhost:3000/api/products", {
+    method: "GET",
+  }).then((res) => res.json())) as Product[];
+
+  const {
+    ItemName,
+    BrandName,
+    ProductDetail,
+    SalesPrice,
+    PictureMain,
+    QtyInStock,
+    QtyOnOrder,
+    Description,
+  } = response[0];
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+    <main className="flex min-h-screen flex-col items-center justify-between p-24 max-w-screen-xl mx-auto">
+      <div className="flex flex-col lg:flex-row gap-5 p-5 ring-2 ring-slate-500 rounded-md shadow-lg shadow-white">
+        {/* Smol Images */}
+        {/* <div className="hidden lg:flex flex-row lg:flex-col gap-4 overflow-auto max-h-[720px] w-28">
+          <Image
+            src={PictureMain ?? placeholderImg}
+            width={75}
+            height={50}
+            alt={Description}
+          />
+          <Image
+            src={PictureMain ?? placeholderImg}
+            width={75}
+            height={50}
+            alt={Description}
+          />
+          <Image
+            src={PictureMain ?? placeholderImg}
+            width={75}
+            height={50}
+            alt={Description}
+          />
+          <Image
+            src={PictureMain ?? placeholderImg}
+            width={75}
+            height={50}
+            alt={Description}
+          />
+          <Image
+            src={PictureMain ?? placeholderImg}
+            width={75}
+            height={50}
+            alt={Description}
+          />
+        </div> */}
+
+        {/* Main Image */}
+        <div className="lg:w-[300px] lg:h-[300px] shadow">
+          <Image
+            src={PictureMain ?? placeholderImg}
+            width={700}
+            height={700}
+            alt={Description}
+          />
+        </div>
+
+        {/* Texts and Buttons */}
+        <div className="w-full lg:w-2/3 ">
+          <div className="flex flex-row justify-center lg:justify-start">
+            <Badge text={"New!"} />
+          </div>
+          <Spacer variant="sm" />
+          <div className="flex flex-col gap-2 lg:text-left text-center">
+            <h1 className="text-3xl font-bold">{ItemName}</h1>
+            <h1 className="text-3xl font-bold">Brand: {BrandName}</h1>
+            <p>£{SalesPrice}</p>
+            <p className="text-red-500">In Stock: {QtyInStock}</p>
+            <p className="text-emerald-500">In Order: {QtyOnOrder}</p>
+            <p className="prose-xl max-h-[250px] overflow-auto my-3 text-base">
+              {ProductDetail}
+            </p>
+          </div>
+
+          {/* Radios */}
+          <div>
+            <p className="text-lg">Colour</p>
+            <ProductRadioGroup
+              content={[
+                "Red",
+                "Orange",
+                "Yellow",
+                "Green",
+                "Blue",
+                "Purple",
+                "Pink",
+                "Brown",
+                "Gold",
+                "Silver",
+                "Grey",
+                "Black",
+                "White",
+                "Natural",
+                "Multicolour",
+              ]}
             />
-          </a>
+            <Spacer />
+            <p className="text-lg">Body Shape</p>
+            <ProductRadioGroup
+              content={[
+                "SStyle",
+                "TStyle",
+                "DoubleCut",
+                "Offest",
+                "HollowBody",
+                "VStyle",
+                "SmallBody",
+                "Orchestral",
+                "GrandAuditorium",
+                "Dreadnought",
+                "Jumbo",
+                "Explorer",
+                "SingleCut",
+                "Combo",
+                "Head",
+                "Cabinet",
+              ]}
+            />
+          </div>
+
+          <Spacer />
+          <div className="space-y-5">
+            <Button
+              className="w-full bg-sky-400 hover:bg-sky-400"
+              text="Add to Wishlist 💖"
+            />
+            <Button className="w-full" text="Order" />
+          </div>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
     </main>
-  )
+  );
 }
