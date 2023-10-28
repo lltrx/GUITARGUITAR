@@ -32,13 +32,21 @@ export default function Orders() {
   }, []);
 
   const getOrders = async () => {
-    const customerID = localStorage.getItem('user.CustomerId')
+
+    const userItem = localStorage.getItem('user');
+    const user = userItem ? JSON.parse(userItem): null;
+
+    if (!user) {
+      window.location.href = '/';
+      return;
+    }
+
     const response = await fetch('api/orders', {
       method: 'POST',
       headers: {
         'Content-type':'application/json'},
       body: JSON.stringify({
-        customerID: customerID?.toString()
+        "customerID": user.Id.toString()
       })
     })
     const order: Array<Order> = await response.json();
