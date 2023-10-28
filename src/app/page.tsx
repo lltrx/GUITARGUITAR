@@ -78,7 +78,7 @@ export default function Login() {
 
       window.location.href = '/orders'
 
-    }, 3000)
+    }, 2000)
 
   }
 

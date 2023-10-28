@@ -4,6 +4,7 @@ import { motion, useScroll } from 'framer-motion';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Order } from '../utils/types';
+import Image from 'next/image';
 
 export default function Orders() {
 	const [orders, setOrders] = useState<Array<Order>>([]);
@@ -32,6 +33,7 @@ export default function Orders() {
 	};
 
 	useEffect(() => {
+		console.log('hello?')
 		getOrders();
 	}, []);
 
@@ -115,25 +117,33 @@ export default function Orders() {
 	};
 
 	return (
-		<div className='flex flex-col justify-center items-center'>
-			<motion.div
-      className='flex flex-col justify-center items-center'
-				initial='easeIn'
-				animate={inputAnimationState}
-				variants={inputVariants}>
-				<h1 className='text-4xl'>Orders</h1>
+		<>
+        	<motion.div animate={{scale:0, transition:{duration:2}}} className="absolute flex w-screen h-screen inset-0 bg-black bg-opacity-70 z-10">
+			</motion.div>
+			<motion.div animate={{scale:2, y:100, transition:{duration:1}}} className="absolute flex w-screen h-screen inset-0  z-10">
+				<Image src="/logo.png" alt="logo" width={200} height={200} />
+			</motion.div>
+			<div className='flex flex-col justify-center items-center'>
+				<motion.div
+					className='flex flex-col justify-center items-center'
+					initial='easeIn'
+					animate={inputAnimationState}
+					variants={inputVariants}>
+					<h1 className='text-4xl'>Orders</h1>
+					<br></br>
+					<input
+						className='text-black rounded-xl px-4'
+						onChange={handleChange}
+						type='text'
+						placeholder='Search product name...'
+					/>
+				</motion.div>
 				<br></br>
-				<input
-					className='w-4/5 h-14 border-b-2 border-gray-300 text-gray-900 transition-all focus:outline-none focus:w-full focus:border-2 focus:border-secondary rounded-3xl p-6'
-					onChange={handleChange}
-					type='text'
-					placeholder='Search product name...'
-				/>
-			</motion.div>
-			<br></br>
-			<motion.div className='flex flex-col gap-10 justify-between'>
-				{ordersList}
-			</motion.div>
-		</div>
+				<motion.div className='flex flex-col gap-10 justify-between'>
+					{ordersList}
+				</motion.div>
+			</div>
+		</>
+
 	);
 }
