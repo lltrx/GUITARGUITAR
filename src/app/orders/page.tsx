@@ -1,5 +1,8 @@
+"use client"
 import OrderCard from '../components/orderCard'
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
+import React from "react";
+
 
 export default function Orders() {
   return (
