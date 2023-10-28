@@ -19,7 +19,7 @@ export default function Loyalty({ debug }: { debug?: boolean }) {
   return (
     <>
       <p className="text-4xl text-secondary">Loyalty Level 🎉</p>
-      <div className="w-full max-w-md md:max-w-3xl px-24 py-4 mb-32">
+      <div className="w-full max-w-3xl px-24 py-4 mb-32">
         <Stepper
           lineClassName="bg-black shadow shadow-white"
           activeLineClassName="bg-white shadow-lg shadow-white"
