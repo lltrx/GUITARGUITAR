@@ -67,7 +67,7 @@ export default function OrderCard({
 								Price: £{product.SalesPrice}
 							</span>
 							<span className='text-lg ml-2 text-black'>
-								Description: {truncatedDescription}
+								<h2 dangerouslySetInnerHTML={{ __html: truncatedDescription}} />
 							</span>
 							<button className='inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background bg-blue-500  hover:bg-blue-500/90 h-12 px-4 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 transition-all text-lg '>
 								<Link
