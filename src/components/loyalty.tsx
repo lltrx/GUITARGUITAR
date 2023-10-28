@@ -5,14 +5,16 @@ import { Stepper, Step } from "@material-tailwind/react";
 import { PiGuitarDuotone } from "react-icons/pi";
 
 export default function Loyalty({ debug }: { debug?: boolean }) {
-  const userItem = localStorage.getItem("user");
-  // const { LoyaltyLevel } = userItem ? JSON.parse(userItem) : null;
   const [activeStep, setActiveStep] = React.useState(-1);
 
-  const loyaltyLvl = JSON.parse(userItem ?? "").LoyaltyLevel
-
   useEffect(() => {
-    setTimeout(() => setActiveStep( ( loyaltyLvl - 0) ), 1200);
+    setTimeout(
+      () =>
+        setActiveStep(
+          JSON.parse(localStorage.getItem("user") ?? "").LoyaltyLevel - 1
+        ),
+      1200
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -74,9 +76,15 @@ export default function Loyalty({ debug }: { debug?: boolean }) {
             className="transition-all duration-200"
           >
             <div className={activeStep >= 2 ? "text-secondary" : "text-black"}>
-              <div className="absolute -translate-x-1"><PiGuitarDuotone /></div>
-              <div className="absolute -translate-x-1 -translate-y-4 "><PiGuitarDuotone /></div>
-              <div className="absolute -translate-x-4 -translate-y-3 "><PiGuitarDuotone /></div>
+              <div className="absolute -translate-x-1">
+                <PiGuitarDuotone />
+              </div>
+              <div className="absolute -translate-x-1 -translate-y-4 ">
+                <PiGuitarDuotone />
+              </div>
+              <div className="absolute -translate-x-4 -translate-y-3 ">
+                <PiGuitarDuotone />
+              </div>
             </div>
             <div
               className={`absolute translate-y-24 w-max text-center max-w-[150px] ${

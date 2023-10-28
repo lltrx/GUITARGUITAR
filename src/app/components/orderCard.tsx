@@ -65,7 +65,7 @@ export default function OrderCard({
                     Price: £{product.SalesPrice}
                   </span>
                   <span className="text-lg ml-2 text-black">
-                    Description: {truncatedDescription}
+                    Description: <h2 dangerouslySetInnerHTML={{ __html: truncatedDescription}} />
                   </span>
 
                   <Link
