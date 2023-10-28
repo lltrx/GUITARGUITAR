@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { StepperWithContent } from '@/components/StatusBar';
 
 export default function OrderCard({
 	orderNumber,
@@ -22,7 +23,7 @@ export default function OrderCard({
 			animate={animate}
 			variants={variants}
 			onClick={onClick}
-			className='bg-white rounded-xl p-6 w-96 shadow-md '>
+			className='bg-white rounded-xl p-6 min-w-[500px] shadow-md '>
 			<div className='flex justify-between mb-4'>
 				<span className='text-gray-700 bg-slate-400 rounded-lg'>
 					Order number: {orderNumber}
@@ -31,9 +32,10 @@ export default function OrderCard({
 			<div className='flex justify-between mb-4'>
 				<span className='text-gray-700'>Order Placed: {orderDate}</span>
 			</div>
-			<div className='mb-4'>
+			<div className='mb-4 '>
 				<span className='text-lg font-bold text-black'>Status:</span>
-				<span className='text-lg ml-2 '>{status}</span>
+				<span className='text-lg ml-2 text-black'>{status}</span>
+                <StepperWithContent status={status} />
 			</div>
 			<div className='mb-4'>
 				<span className='text-gray-700'>Delivering to: {deliveryAddress}</span>
