@@ -13,8 +13,9 @@ export default function Login() {
 
 
   useEffect(() => {
+    console.log(localStorage.getItem('user'))
     if (localStorage.getItem('user') !== null || localStorage.getItem('user') !== undefined) {
-      localStorage
+      localStorage.removeItem('user')
     }
   }, [])
 
