@@ -95,7 +95,7 @@ export default async function Orders() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 max-w-screen-xl mx-auto">
-      <div className="flex flex-col lg:flex-row gap-5 p-5 ring-2 ring-slate-500 rounded-md shadow-lg shadow-white">
+      <div className="flex bg-white flex-col lg:flex-row gap-5 p-5 ring-2 ring-slate-500 rounded-md shadow-lg shadow-white">
         {/* Smol Images */}
         {/* <div className="hidden lg:flex flex-row lg:flex-col gap-4 overflow-auto max-h-[720px] w-28">
           <Image
