@@ -7,8 +7,8 @@ import ChakraProviders from "@/components/chakra-providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "GuitarGuitar",
-  description: "GuitarGuitar hackathon project",
+  title: "guitarguitar",
+  description: "guitarguitar hackathon project",
 };
 
 export default function RootLayout({
