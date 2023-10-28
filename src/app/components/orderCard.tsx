@@ -1,4 +1,6 @@
+'use client';
 import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function OrderCard({
 	orderNumber,
@@ -6,11 +8,24 @@ export default function OrderCard({
 	orderDate,
 	deliveryAddress,
 	total,
+	initial,
+	animate,
+	variants,
+	onClick,
 }) {
 	return (
-		<div className='bg-white rounded-xl p-6 w-96 shadow-md'>
+		<motion.div
+		initial={initial}
+		animate={animate}
+		variants={variants}
+		onClick={onClick}
+		className='bg-white rounded-xl p-6 w-96 shadow-md '>
 			<div className='flex justify-between mb-4'>
-				<span className='text-gray-700'>Order number: {orderNumber}</span>
+				<span className='text-gray-700 bg-slate-400 rounded-lg'>
+					Order number: {orderNumber}
+				</span>
+			</div>
+			<div className='flex justify-between mb-4'>
 				<span className='text-gray-700'>Order Placed: {orderDate}</span>
 			</div>
 			<div className='mb-4'>
@@ -23,6 +38,6 @@ export default function OrderCard({
 			<div className='mt-4 border-t pt-4'>
 				<span className='text-lg font-bold text-black'>Total: £{total}</span>
 			</div>
-		</div>
+		</motion.div>
 	);
 }
