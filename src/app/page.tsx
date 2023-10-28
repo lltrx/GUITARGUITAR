@@ -76,11 +76,11 @@ export default function Login() {
                 <div className="pt-8 text-base leading-6 space-y-8 text-gray-700 sm:text-base sm:leading-7">
                   <div className="relative flex justify-center">
                     <input autoComplete="off" id="email" name="email" type="text" value={formState.email} onChange={handleChange} className="peer placeholder-transparent w-4/5 h-10 border-b-2 border-gray-300 text-gray-900 transition-all focus:outline-none focus:w-full focus:border-2 focus:border-secondary rounded-3xl p-6" placeholder="Email address" />
-                    <label htmlFor="email" className="absolute pl-7 left-12 -top-5 text-secondary text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-600 peer-placeholder-shown:top-3.5 transition-all peer-focus:-top-5 peer-focus:left-0 peer-focus:text-secondary peer-focus:text-sm">Email Address</label>
+                    <label htmlFor="email" className="absolute pl-7 left-8 -top-5 text-secondary text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-600 peer-placeholder-shown:top-3.5 transition-all peer-focus:-top-5 peer-focus:left-0 peer-focus:text-secondary peer-focus:text-sm">Email Address</label>
                   </div>
                   <div className="relative flex justify-center">
                     <input autoComplete="off" id="password" name="password" type="password" value={formState.password} onChange={handleChange} className="peer placeholder-transparent w-4/5 h-10 border-b-2 border-gray-300 text-gray-900 transition-all focus:outline-none focus:w-full focus:border-2 focus:border-secondary rounded-3xl p-6" placeholder="Password" />
-                    <label htmlFor="password" className="absolute pl-7 left-12 -top-5 text-secondary text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-600 peer-placeholder-shown:top-3.5 transition-all peer-focus:-top-5 peer-focus:left-0 peer-focus:text-secondary peer-focus:text-sm">Password</label>
+                    <label htmlFor="password" className="absolute pl-7 left-8 -top-5 text-secondary text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-600 peer-placeholder-shown:top-3.5 transition-all peer-focus:-top-5 peer-focus:left-0 peer-focus:text-secondary peer-focus:text-sm">Password</label>
                   </div>
                   <div className="flex relative justify-center pt-5">
                     <button type="submit" className="bg-primary text-white text-lg border-secondary border-2 rounded-3xl px-4 py-1 hover:transition-all ease-in-out hover:bg-secondary hover:px-10 duration-200">Log In</button>
