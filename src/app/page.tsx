@@ -78,7 +78,7 @@ export default function Login() {
 
       window.location.href = '/orders'
 
-    }, 2000)
+    }, 3000)
 
   }
 
@@ -97,14 +97,14 @@ export default function Login() {
         </video>
         <div className="absolute w-full h-full inset-0 bg-black bg-opacity-70 z-10" />
         <div className="absolute flex justify-center items-center w-screen h-screen top-0 left-0 z-20">
-        <div className="relative flex flex-col w-1/2 max-w-[500px] h-[400px] items-center justify-center text-white py-16 rounded-3xl">
+        <div className="relative flex flex-col w-5/6 sm:2/3 lg:w-1/2 max-w-[500px] h-[400px] items-center justify-center text-white py-16 rounded-3xl">
         <motion.div animate={bgAnimation} layout className="absolute w-full h-full bg-primary rounded-3xl" />
           <div className="mx-auto w-full">
             <motion.div animate={imageAnimation} className="absolute w-full flex justify-center">
               <Image src="/logo.png" alt="logo" width={200} height={200} />
             </motion.div>
             <motion.div animate={formAnimation}>
-              <form className="pt-8 px-20" onSubmit={handleSubmit}>
+              <form className="pt-8 px-5 md:px-10" onSubmit={handleSubmit}>
                 <div className="divide-y divide-gray-200">
                   <div className="pt-8 text-base leading-6 space-y-8 text-gray-700 sm:text-base sm:leading-7">
                     <div className="relative flex justify-center">
