@@ -17,7 +17,7 @@ export function StepperWithContent(status:any) {
     }
     
     return (
-        <div className="px-10 py-4">
+        <div className="px-10 py-4 hidden md:block">
         <Stepper
             activeStep={activeStep}
             activeLineClassName="bg-secondary"
