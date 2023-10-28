@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import OrderCard from '../components/orderCard'
 import { motion } from "framer-motion";
 import React from 'react'
@@ -32,32 +32,19 @@ export default function Orders() {
   }, []);
 
   const getOrders = async () => {
+    const customerID = localStorage.getItem('user.CustomerId')
     const response = await fetch('api/orders', {
       method: 'POST',
       headers: {
         'Content-type':'application/json'},
       body: JSON.stringify({
-        "customerID": "9833" // localStorage.getItem('user.CustomerId')
+        customerID: customerID?.toString()
       })
     })
     const order: Array<Order> = await response.json();
     setOrders(order);
   }
   
-  const draw = {
-    hidden: { pathLength: 0.5, opacity: 1 },
-    visible: (i: number) => {
-      const delay = 1 + i * 0.5;
-      return {
-        pathLength: 2,
-        opacity: 1,
-        transition: {
-          pathLength: { delay, type: "spring", duration: 1.5, bounce: 5 },
-          opacity: { delay, duration: 0.01 }
-        }
-      };
-    }
-  };
 
   const ordersList = filtered.map((order, i) => (
     <OrderCard
@@ -76,9 +63,17 @@ export default function Orders() {
       <br></br>
       <input className='text-black rounded-xl px-4' onChange={handleChange} type='text' placeholder='Search product name...'/>
       <br></br>
-      <div>
+      <motion.div className='flex flex-col gap-10 justify-between'
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.5,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+      >
         {ordersList}
-      </div>
+      </motion.div>
     </div>
   );
 }
