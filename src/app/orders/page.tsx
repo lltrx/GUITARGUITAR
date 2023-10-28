@@ -121,7 +121,7 @@ export default function Orders() {
 		<>
         	<motion.div animate={{scaleX:0, transition:{duration:1.5}}} className="absolute flex w-screen h-screen inset-0 bg-primary z-40">
 			</motion.div>
-            <motion.div animate={{scale:[0.75,1.5], opacity:0, transition:{duration:1}}} className="absolute w-full h-screen flex justify-center items-center z-40">
+            <motion.div animate={{scale:[1.5,0], opacity:0, transition:{duration:1}}} className="absolute w-full h-screen flex justify-center items-center z-40">
 				<Image src="/logo.png" alt="logo" width={400} height={72} />
             </motion.div>
 			<div className="p-10 h-14 flex flex-row justify-between w-full mx-auto">
