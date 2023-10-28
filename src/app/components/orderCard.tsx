@@ -12,17 +12,12 @@ export default function OrderCard({
 	orderDate,
 	deliveryAddress,
 	total,
-	initial,
-	animate,
-	variants,
 	onClick,
 	products,
 }) {
+
 	return (
 		<motion.div
-			initial={initial}
-			animate={animate}
-			variants={variants}
 			onClick={onClick}
 			className='bg-white rounded-xl p-6 min-w-[500px] shadow-md '>
 			<div className='flex justify-between mb-4'>
@@ -36,7 +31,7 @@ export default function OrderCard({
 			<div className='mb-4 '>
 				<span className='text-lg font-bold text-black'>Status:</span>
 				<span className='text-lg ml-2 text-black'>{status}</span>
-                <StepperWithContent status={status} />
+				<StepperWithContent status={status} />
 			</div>
 			<div className='mb-4'>
 				<span className='text-gray-700'>Delivering to: {deliveryAddress}</span>
@@ -74,10 +69,13 @@ export default function OrderCard({
 							<span className='text-lg ml-2 text-black'>
 								Description: {truncatedDescription}
 							</span>
-							<button className='inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background bg-blue-500  hover:bg-blue-500/90 h-12 px-4 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 transition-all text-lg '><Link href={`http://localhost:3000/product/${product.SKU_ID}`} className='text-white'>
-										More 
-							</Link></button>
-							
+							<button className='inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background bg-blue-500  hover:bg-blue-500/90 h-12 px-4 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 transition-all text-lg '>
+								<Link
+									href={`http://localhost:3000/product/${product.SKU_ID}`}
+									className='text-white'>
+									More
+								</Link>
+							</button>
 						</div>
 					);
 				})}
