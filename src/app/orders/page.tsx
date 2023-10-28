@@ -4,6 +4,7 @@ import { motion, useScroll } from 'framer-motion';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Order } from '../utils/types';
+import Loyalty from '@/components/loyalty';
 
 export default function Orders() {
 	const [orders, setOrders] = useState<Array<Order>>([]);
@@ -35,20 +36,28 @@ export default function Orders() {
 		getOrders();
 	}, []);
 
-	const getOrders = async () => {
-		const customerID = localStorage.getItem('user.CustomerId');
-		const response = await fetch('api/orders', {
-			method: 'POST',
-			headers: {
-				'Content-type': 'application/json',
-			},
-			body: JSON.stringify({
-				customerID: customerID?.toString(),
-			}),
-		});
-		const order: Array<Order> = await response.json();
-		setOrders(order);
-	};
+  const getOrders = async () => {
+
+    const userItem = localStorage.getItem('user');
+    const user = userItem ? JSON.parse(userItem): null;
+
+    if (!user) {
+      window.location.href = '/';
+      return;
+    }
+
+    const response = await fetch('api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-type':'application/json'},
+      body: JSON.stringify({
+        "customerID": user.Id.toString()
+      })
+    })
+    const order: Array<Order> = await response.json();
+    setOrders(order);
+  }
+  
 
 	const expandInOut = {
 		collapsed: {
@@ -90,7 +99,7 @@ export default function Orders() {
 						setExpandedOrder(order.Id);
 					}
 				}}
-				status={order.Status}
+				status={order.OrderStatus}
 				orderDate={order.Date}
 				deliveryAddress={order.DeliveryAddress}
 				total={order.Total}
@@ -108,6 +117,7 @@ export default function Orders() {
 
 	return (
 		<div className='flex flex-col justify-center items-center'>
+      <Loyalty showBtns />
 			<motion.div
       className='flex flex-col justify-center items-center'
 				initial='easeIn'
@@ -116,7 +126,7 @@ export default function Orders() {
 				<h1 className='text-4xl'>Orders</h1>
 				<br></br>
 				<input
-					className='text-black rounded-xl px-4'
+					className='w-4/5 h-14 border-b-2 border-gray-300 text-gray-900 transition-all focus:outline-none focus:w-full focus:border-2 focus:border-secondary rounded-3xl p-6'
 					onChange={handleChange}
 					type='text'
 					placeholder='Search product name...'
