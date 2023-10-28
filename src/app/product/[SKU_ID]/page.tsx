@@ -87,7 +87,7 @@ export default async function Orders({ params }: { params: { slug: string } }) {
         </div> */}
 
           {/* Main Image */}
-          <div className="lg:w-[300px] shadow overflow-hidden">
+          <div className="lg:w-[300px] overflow-hidden">
             <Image
               src={PictureMain ?? placeholderImg}
               width={700}
@@ -108,8 +108,9 @@ export default async function Orders({ params }: { params: { slug: string } }) {
               <p>£{SalesPrice}</p>
               <p className="text-red-500">In Stock: {QtyInStock}</p>
               <p className="text-green-400">In Order: {QtyOnOrder}</p>
-              <p className="prose-xl max-h-[250px] overflow-auto my-3 text-base">
-                {ProductDetail}
+              <p className="prose-xl max-h-[250px] overflow-auto my-3 text-lg">
+                Detail: 
+                <p className="text-gray-600 text-base" dangerouslySetInnerHTML={{ __html: ProductDetail !== "" ? ProductDetail : "N/A"}} />
               </p>
             </div>
 
