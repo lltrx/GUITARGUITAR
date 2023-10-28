@@ -119,7 +119,7 @@ export default function Orders() {
 
 	return (
 		<>
-        	<motion.div animate={{scaleX:0, transition:{duration:1.5}}} className="absolute flex w-screen h-screen inset-0 bg-primary z-40">
+        	<motion.div animate={{scaleX:0, transition:{duration:1.0}}} className="absolute flex w-screen h-screen inset-0 bg-primary z-40">
 			</motion.div>
             <motion.div animate={{scale:[1.5,0], opacity:0, transition:{duration:1}}} className="absolute w-full h-screen flex justify-center items-center z-40">
 				<Image src="/logo.png" alt="logo" width={400} height={72} />
@@ -144,7 +144,8 @@ export default function Orders() {
 				</div>
 			</div>
 			<div className='flex flex-col justify-center items-center'>
-	      <Loyalty showBtns />
+			
+      <Loyalty debug={true} />
 			<motion.div
 					className='flex flex-col justify-center items-center'
 					initial='easeIn'

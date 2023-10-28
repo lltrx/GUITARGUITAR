@@ -1,5 +1,27 @@
 "use client";
 
-import { ThemeProvider, Stepper, Step, Button } from "@material-tailwind/react";
+import {
+  ThemeProvider,
+  Stepper,
+  Step,
+  Button,
+  CardHeader,
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
+} from "@material-tailwind/react";
 
-export { ThemeProvider, Stepper, Step, Button };
+export {
+  ThemeProvider,
+  Stepper,
+  Step,
+  Button,
+  CardHeader,
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
+};
