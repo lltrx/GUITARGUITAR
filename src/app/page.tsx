@@ -14,7 +14,7 @@ export default function Login() {
 
   useEffect(() => {
     if (localStorage.getItem('user') !== null || localStorage.getItem('user') !== undefined) {
-      localStorage.removeItem('user')
+      localStorage
     }
   }, [])
 
@@ -44,7 +44,9 @@ export default function Login() {
       return
     }
 
-    localStorage.setItem('user', user)
+    const userJson = JSON.stringify(user)
+
+    localStorage.setItem('user', userJson)
 
     alert('Logged in successfully')
 
