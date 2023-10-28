@@ -1,6 +1,20 @@
+'use client'
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 export default async function NavBar() {
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+	useEffect(() => {
+		// Check if the user is logged in
+		const user = localStorage.getItem('user');
+		setIsLoggedIn(!!user); // Convert user to a boolean value
+	}, []);
+
+	if (!isLoggedIn) {
+		return null;
+	}
+
 	const response = await fetch('http://localhost:3000/api/customers', {
 		method: 'GET',
 		headers: {
