@@ -59,20 +59,25 @@ export default function Orders() {
     }
   };
 
+  const ordersList = filtered.map((order, i) => (
+    <OrderCard
+      key={i}
+      orderNumber={order.Id}
+      status={order.OrderStatus}
+      orderDate={order.DateCreated}
+      deliveryAddress={order.ShippingAddress.street_address}
+      total={order.OrderTotal}
+    />
+  ));
+
   return (
     <div className='flex flex-col justify-center items-center'>
       <h1 className='text-4xl'>Orders</h1>
       <br></br>
       <input className='text-black rounded-xl px-4' onChange={handleChange} type='text' placeholder='Search product name...'/>
       <br></br>
-      <div className=''>
-          <OrderCard
-            orderNumber='123456'
-            status='Preparing'
-            orderDate='2021-06-01'
-            deliveryAddress='123 Fake Street'
-            total='10.00'
-          />
+      <div>
+        {ordersList}
       </div>
     </div>
   );
