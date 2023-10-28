@@ -145,7 +145,7 @@ export default function Orders() {
 			</div>
 			<div className='flex flex-col justify-center items-center'>
 			
-      <Loyalty debug={true} />
+      <Loyalty debug={false} />
 			<motion.div
 					className='flex flex-col justify-center items-center'
 					initial='easeIn'

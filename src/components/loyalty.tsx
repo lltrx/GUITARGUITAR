@@ -9,8 +9,10 @@ export default function Loyalty({ debug }: { debug?: boolean }) {
   // const { LoyaltyLevel } = userItem ? JSON.parse(userItem) : null;
   const [activeStep, setActiveStep] = React.useState(-1);
 
+  const loyaltyLvl = JSON.parse(userItem ?? "").LoyaltyLevel
+
   useEffect(() => {
-    setTimeout(() => setActiveStep( ( JSON.parse(userItem ?? "")??0 - 1) ), 1200);
+    setTimeout(() => setActiveStep( ( loyaltyLvl - 0) ), 1200);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
