@@ -3,13 +3,13 @@ import { Radio, RadioGroup, Stack } from "@chakra-ui/react";
 import Image from "next/image";
 import TailwindRadio from "./tw-radio";
 import NavBar from "@/app/components/navBar";
-import GuitarTabs from "./tabs";
+import { usePathname } from "next/navigation";
 
 const placeholderImg =
   "https://images.guitarguitar.co.uk/cdn/large/170/170809313186008f.jpg";
 
 const Badge = ({ text }: { text: string }) => (
-  <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-orange-600 shadow shadow-white">
+  <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-orange-600 shadow shadow-white text-white">
     {text}
   </div>
 );
@@ -26,63 +26,15 @@ const Button = ({ className, text }: { className?: string; text?: string }) => (
   </button>
 );
 
-const product = {
-  name: "Basic Tee 6-Pack",
-  price: "$192",
-  href: "#",
-  breadcrumbs: [
-    { id: 1, name: "Men", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
-  ],
-  images: [
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
-      alt: "Two each of gray, white, and black shirts laying flat.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg",
-      alt: "Model wearing plain black basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg",
-      alt: "Model wearing plain gray basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg",
-      alt: "Model wearing plain white basic tee.",
-    },
-  ],
-  colors: [
-    { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-    { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-    { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-  ],
-  sizes: [
-    { name: "XXS", inStock: false },
-    { name: "XS", inStock: true },
-    { name: "S", inStock: true },
-    { name: "M", inStock: true },
-    { name: "L", inStock: true },
-    { name: "XL", inStock: true },
-    { name: "2XL", inStock: true },
-    { name: "3XL", inStock: true },
-  ],
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-  highlights: [
-    "Hand cut and sewn locally",
-    "Dyed with our proprietary colors",
-    "Pre-washed & pre-shrunk",
-    "Ultra-soft 100% cotton",
-  ],
-  details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-};
+export default async function Orders({ params }: { params: { slug: string } }) {
+  // @ts-ignore
+  const { SKU_ID: id } = params;
 
-export default async function Orders() {
   const response = (await await fetch("http://localhost:3000/api/products", {
     method: "GET",
   }).then((res) => res.json())) as Product[];
+
+  const product = response.filter((p) => p.SKU_ID === id)
 
   const {
     ItemName,
@@ -93,7 +45,7 @@ export default async function Orders() {
     QtyInStock,
     QtyOnOrder,
     Description,
-  } = response[0];
+  } = product[0];
 
   return (
     <>
@@ -135,7 +87,7 @@ export default async function Orders() {
         </div> */}
 
           {/* Main Image */}
-          <div className="lg:w-[300px] lg:h-[300px] shadow">
+          <div className="lg:w-[300px] shadow overflow-hidden">
             <Image
               src={PictureMain ?? placeholderImg}
               width={700}
@@ -155,7 +107,7 @@ export default async function Orders() {
               <h1 className="text-3xl font-bold">Brand: {BrandName}</h1>
               <p>£{SalesPrice}</p>
               <p className="text-red-500">In Stock: {QtyInStock}</p>
-              <p className="text-emerald-500">In Order: {QtyOnOrder}</p>
+              <p className="text-green-400">In Order: {QtyOnOrder}</p>
               <p className="prose-xl max-h-[250px] overflow-auto my-3 text-base">
                 {ProductDetail}
               </p>
@@ -206,7 +158,7 @@ export default async function Orders() {
                 ]}
               />
             </div>
-            
+
             <Spacer />
             <div className="space-y-5">
               <Button
@@ -221,3 +173,5 @@ export default async function Orders() {
     </>
   );
 }
+
+export { Button };

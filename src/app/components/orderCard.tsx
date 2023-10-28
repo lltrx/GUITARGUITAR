@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '../product/[SKU_ID]/page';
 import { StepperWithContent } from '@/components/StatusBar';
 
 export default function OrderCard({
@@ -73,9 +74,10 @@ export default function OrderCard({
 							<span className='text-lg ml-2 text-black'>
 								Description: {truncatedDescription}
 							</span>
-							<Link href={`http://localhost:3000/product/${product.Id}`} className='text-black'>
+							<button className='inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background bg-blue-500  hover:bg-blue-500/90 h-12 px-4 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 transition-all text-lg '><Link href={`http://localhost:3000/product/${product.SKU_ID}`} className='text-white'>
 										More 
-							</Link>
+							</Link></button>
+							
 						</div>
 					);
 				})}
