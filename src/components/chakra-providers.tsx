@@ -12,8 +12,8 @@ export default function ChakraProviders({
 }) {
   const theme: ThemeConfig = extendTheme({
     config: {
-      initialColorMode: "dark",
-      useSystemColorMode: true,
+      initialColorMode: "light",
+      useSystemColorMode: false,
     },
   });
 
