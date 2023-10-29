@@ -33,6 +33,11 @@ export default function Orders() {
 	};
 
 	useEffect(() => {
+
+		if (localStorage.getItem('user') === null) {
+			window.location.href = '/';
+		}
+
 		const userStored = JSON.parse(localStorage.getItem('user'));
 		if (userStored !== null) {
 			setUser(userStored);
