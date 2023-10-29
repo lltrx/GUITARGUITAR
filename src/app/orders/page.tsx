@@ -78,7 +78,7 @@ export default function Orders() {
 				animate={{ scaleX: 0, transition: { duration: 1.0 } }}
 				className='absolute flex w-screen h-screen inset-0 bg-primary z-40'></motion.div>
 			<motion.div
-				animate={{ scale: [1.5, 0], opacity: 0, transition: { duration: 1 } }}
+				animate={{ scale: 0, opacity: 0, transition: { duration: 1 } }}
 				className='absolute w-full h-screen flex justify-center items-center z-40'>
 				<Image
 					src='/logo.png'
@@ -93,7 +93,7 @@ export default function Orders() {
       <Loyalty debug={false} />
 			<motion.div
 					className='flex flex-col justify-center items-center'>
-					<h1 className='text-4xl text-secondary'>Orders</h1>
+					<h1 className='text-2xl md:text-4xl text-secondary'>Orders</h1>
 					<br></br>
 					<input
 						className='w-4/5 h-10 border-b-2 border-gray-300 text-gray-900 transition-all focus:outline-none focus:w-64 md:focus:w-96 focus:border-2 focus:border-secondary rounded-3xl p-6'
@@ -103,7 +103,7 @@ export default function Orders() {
 					/>
 				</motion.div>
 				<br></br>
-				<motion.div className='flex flex-col gap-10 justify-between px-3 md:px-6'>
+				<motion.div className='flex flex-col gap-10 justify-between pb-20 px-3 md:px-6'>
 					{ordersList}
 				</motion.div>
 			</div>

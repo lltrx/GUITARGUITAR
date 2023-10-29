@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../product/[SKU_ID]/page";
 import { StepperWithContent } from "@/components/StatusBar";
+import { useEffect, useState } from "react";
 
 export default function OrderCard({
   orderNumber,
@@ -15,6 +16,37 @@ export default function OrderCard({
   onClick,
   products,
 }) {
+
+	const [activeStep, setActiveStep] = useState(-1);
+	const [discount, setDiscount] = useState(0);
+
+	useEffect(() => {
+		const step = JSON.parse(localStorage.getItem("user") ?? "").LoyaltyLevel
+
+		setActiveStep(step)
+
+		const category = products[0].Category.substring(0, 2)
+
+		if (step === 3){
+			setDiscount(0.1)
+		  }
+		else if (category === "AC" && step >= 2 || category === "GU" && step >= 2) {
+			setDiscount(0.1)
+		  }
+
+		else if (category === "GU" && step >= 1) {
+			setDiscount(0.05)
+		  }
+
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	  }, []);
+
+	  const formattedOrderDate = new Date(orderDate).toLocaleDateString('en-GB');
+
+
+
+
   const orderStatus: Record<number, string> = {
     1: "Placed",
     2: "Dispatched",
@@ -24,7 +56,7 @@ export default function OrderCard({
     6: "Cancelled",
   };
 
-  return (
+  return (	
     <motion.div
       onClick={onClick}
       className="bg-white rounded-xl p-6 w-full md:w-[500px] shadow-md"
@@ -33,9 +65,12 @@ export default function OrderCard({
         <span className="text-gray-700 bg-slate-400 rounded-lg">
           Order number: {orderNumber}
         </span>
+		<div className="text-gray-700 bg-slate-400 rounded-lg">
+			myguitarguitar Level: {activeStep}
+		</div>
       </div>
       <div className="flex justify-between mb-4">
-        <span className="text-gray-700">Order Placed: {orderDate}</span>
+        <span className="text-gray-700">Order Placed: {formattedOrderDate}</span>
       </div>
       <div className="mb-4">
         <span className="text-lg font-bold text-black">Status:</span>
@@ -71,7 +106,24 @@ export default function OrderCard({
                     {product.ItemName}
                   </span>
                   <span className="text-lg ml-2 text-black">
-                    Price: £{product.SalesPrice}
+					{ discount === 0 ? (
+						<p>Price: £{Number(product.SalesPrice).toFixed(2)}</p>
+					):(
+						<div className="flex flex-col">
+							<div className="flex justify-between">
+								<p>Price:  </p>
+								<div className="flex w-2/3 space-x-2 justify-center">
+									<p className="line-through decoration-secondary decoration-2">£{Number(product.SalesPrice).toFixed(2)}</p>
+									<p>{discount * 100}% Off</p>
+								</div>
+							</div>
+							<div className="flex justify-between">
+								<p>myguitarguitar Price:</p>
+								<p className="flex text-secondary w-2/5 justify-start">£{Number(product.SalesPrice - (product.SalesPrice * discount)).toFixed(2)}</p>
+							</div>
+						</div>
+					)
+					}
                   </span>
                   <span className="text-lg ml-2 text-black">
                     Description:{" "}
