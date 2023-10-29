@@ -47,10 +47,19 @@ export default function OrderCard({
 
 
 
+  const orderStatus: Record<number, string> = {
+    1: "Placed",
+    2: "Dispatched",
+    3: "Delivering",
+    4: "Delivered",
+    5: "Completed",
+    6: "Cancelled",
+  };
+
   return (	
     <motion.div
       onClick={onClick}
-      className="bg-white rounded-xl p-6 min-w-[500px] shadow-md "
+      className="bg-white rounded-xl p-6 w-full md:w-[500px] shadow-md"
     >
       <div className="flex justify-between mb-4">
         <span className="text-gray-700 bg-slate-400 rounded-lg">
@@ -63,9 +72,9 @@ export default function OrderCard({
       <div className="flex justify-between mb-4">
         <span className="text-gray-700">Order Placed: {formattedOrderDate}</span>
       </div>
-      <div className="mb-4 ">
+      <div className="mb-4">
         <span className="text-lg font-bold text-black">Status:</span>
-        <span className="text-lg ml-2 text-black">{status}</span>
+        <span className="text-lg ml-2 text-black">{orderStatus[status]}</span>
         <StepperWithContent status={status} />
       </div>
       <div className="mb-4">
@@ -90,7 +99,7 @@ export default function OrderCard({
                   alt="Avatar"
                   width={75}
                   height={75}
-                  className="rounded-full object-cover"
+                  className="rounded-full object-cover hidden md:block"
                 />
                 <div className="flex flex-col p-5 gap-2 w-full">
                   <span className="text-lg ml-2 text-black">
@@ -117,14 +126,19 @@ export default function OrderCard({
 					}
                   </span>
                   <span className="text-lg ml-2 text-black">
-                    Description: <h2 dangerouslySetInnerHTML={{ __html: truncatedDescription}} />
+                    Description:{" "}
+                    <h2
+                      dangerouslySetInnerHTML={{ __html: truncatedDescription }}
+                    />
                   </span>
 
                   <Link
                     href={`http://localhost:3000/product/${product.SKU_ID}`}
                     className="text-white"
                   >
-                    <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background bg-blue-500  hover:bg-blue-500/90 h-12 px-4 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 transition-all text-lg w-full">More</button>
+                    <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background bg-blue-500  hover:bg-blue-500/90 h-12 px-4 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 transition-all text-lg w-full mt-5">
+                      More
+                    </button>
                   </Link>
                 </div>
               </div>

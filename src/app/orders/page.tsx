@@ -118,14 +118,14 @@ export default function Orders() {
 					<h1 className='text-4xl text-secondary'>Orders</h1>
 					<br></br>
 					<input
-						className='w-4/5 h-10 border-b-2 border-gray-300 text-gray-900 transition-all focus:outline-none focus:w-full focus:border-2 focus:border-secondary rounded-3xl p-6'
+						className='w-4/5 h-10 border-b-2 border-gray-300 text-gray-900 transition-all focus:outline-none focus:w-64 md:focus:w-96 focus:border-2 focus:border-secondary rounded-3xl p-6'
 						onChange={handleChange}
 						type='text'
 						placeholder='Search product name...'
 					/>
 				</motion.div>
 				<br></br>
-				<motion.div className='flex flex-col gap-10 justify-between pb-20'>
+				<motion.div className='flex flex-col gap-10 justify-between pb-20 px-3 md:px-6'>
 					{ordersList}
 				</motion.div>
 			</div>

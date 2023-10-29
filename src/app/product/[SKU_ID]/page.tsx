@@ -108,7 +108,7 @@ export default async function Orders({ params }: { params: { slug: string } }) {
               <p>£{SalesPrice}</p>
               <p className="text-red-500">In Stock: {QtyInStock}</p>
               <p className="text-green-400">In Order: {QtyOnOrder}</p>
-              <p className="prose-xl max-h-[250px] overflow-auto my-3 text-lg">
+              <p className="prose-xl max-h-[250px] overflow-auto my-3 text-xl font-semibold">
                 Detail: 
                 <p className="text-gray-600 text-base" dangerouslySetInnerHTML={{ __html: ProductDetail !== "" ? ProductDetail : "N/A"}} />
               </p>
@@ -116,7 +116,7 @@ export default async function Orders({ params }: { params: { slug: string } }) {
 
             {/* Radios */}
             <div>
-              <p className="text-lg">Colour</p>
+              <p className="text-lg font-semibold md:text-left text-center">Colour</p>
               <ProductRadioGroup
                 content={[
                   "Red",
@@ -137,7 +137,7 @@ export default async function Orders({ params }: { params: { slug: string } }) {
                 ]}
               />
               <Spacer />
-              <p className="text-lg">Body Shape</p>
+              <p className="text-lg font-semibold md:text-left text-center">Body Shape</p>
               <ProductRadioGroup
                 content={[
                   "SStyle",
