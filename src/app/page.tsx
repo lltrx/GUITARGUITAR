@@ -78,7 +78,7 @@ export default function Login() {
 
       window.location.href = '/orders'
 
-    }, 3000)
+    }, 1000)
 
   }
 
@@ -101,7 +101,7 @@ export default function Login() {
         <motion.div animate={bgAnimation} layout className="absolute w-full h-full bg-primary rounded-3xl" />
           <div className="mx-auto w-full">
             <motion.div animate={imageAnimation} className="absolute w-full flex justify-center">
-              <Image src="/logo.png" alt="logo" width={200} height={200} />
+              <Image src="/logo.png" alt="logo" width={200} height={36} />
             </motion.div>
             <motion.div animate={formAnimation}>
               <form className="pt-8 px-5 md:px-10" onSubmit={handleSubmit}>

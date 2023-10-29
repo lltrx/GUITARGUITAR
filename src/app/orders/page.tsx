@@ -77,7 +77,7 @@ export default function Orders() {
 				animate={{ scaleX: 0, transition: { duration: 1.0 } }}
 				className='absolute flex w-screen h-screen inset-0 bg-primary z-40'></motion.div>
 			<motion.div
-				animate={{ scale: [1.5, 0], opacity: 0, transition: { duration: 1 } }}
+				animate={{ scale: 0, opacity: 0, transition: { duration: 1 } }}
 				className='absolute w-full h-screen flex justify-center items-center z-40'>
 				<Image
 					src='/logo.png'
@@ -125,7 +125,7 @@ export default function Orders() {
 					/>
 				</motion.div>
 				<br></br>
-				<motion.div className='flex flex-col gap-10 justify-between'>
+				<motion.div className='flex flex-col gap-10 justify-between pb-20'>
 					{ordersList}
 				</motion.div>
 			</div>
