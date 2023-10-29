@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { Order } from '../utils/types';
 import Loyalty from '@/components/loyalty';
 import Image from 'next/image';
+import NavBar from '../components/navBar';
 
 export default function Orders() {
 	const [orders, setOrders] = useState<Array<Order>>([]);
@@ -86,30 +87,7 @@ export default function Orders() {
 					height={72}
 				/>
 			</motion.div>
-			<div className='p-10 h-14 flex flex-row justify-between w-full mx-auto'>
-				<div className='flex justify-center items-center'>
-					<Image
-						src='/logo.png'
-						alt='Logo'
-						width={150}
-						height={150}
-					/>
-				</div>
-				<div className='flex flex-row justify-center items-center'>
-					<h1 className='text-secondary text-xl mr-4'>
-						Hello, {user !== null && user.first_name} !
-					</h1>
-					<div className='relative w-24 h-24'>
-						<Image
-							src={user !== null && user.avatar}
-							alt='Avatar'
-							width={75}
-							height={75}
-							className='rounded-full object-cover'
-						/>
-					</div>
-				</div>
-			</div>
+			<NavBar />
 			<div className='flex flex-col justify-center items-center'>
 			
       <Loyalty debug={false} />

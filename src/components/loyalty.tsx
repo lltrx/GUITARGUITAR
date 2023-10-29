@@ -19,7 +19,7 @@ export default function Loyalty({ debug }: { debug?: boolean }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const LevelOne = () => (
+  const LevelOne = (): JSX.Element => (
     <Step
       style={{
         backgroundColor: activeStep >= 0 ? "whitesmoke" : "black",
@@ -41,7 +41,7 @@ export default function Loyalty({ debug }: { debug?: boolean }) {
     </Step>
   );
 
-  const LevelTwo = () => (
+  const LevelTwo = (): JSX.Element => (
     <Step
       style={{
         backgroundColor: activeStep >= 0 ? "whitesmoke" : "black",
@@ -66,7 +66,7 @@ export default function Loyalty({ debug }: { debug?: boolean }) {
     </Step>
   );
 
-  const LevelThree = () => (
+  const LevelThree = (): JSX.Element => (
     <Step
       style={{
         backgroundColor: activeStep >= 0 ? "whitesmoke" : "black",
@@ -98,15 +98,19 @@ export default function Loyalty({ debug }: { debug?: boolean }) {
     </Step>
   );
 
-  const DesktopView = () => (
-    <>
+  const DesktopView = (): JSX.Element => (
+    <Stepper
+      lineClassName="bg-black shadow shadow-white hidden md:block"
+      activeLineClassName="bg-white shadow-lg shadow-white hidden md:block"
+      activeStep={activeStep}
+    >
       <LevelOne />
       <LevelTwo />
       <LevelThree />
-    </>
+    </Stepper>
   );
 
-  const MobileView = () => (
+  const MobileView = (): JSX.Element => (
     <div className="flex flex-row justify-center static w-full md:bg-red-500">
       {activeStep === 0 && <LevelOne />}
       {activeStep === 1 && <LevelTwo />}
@@ -120,16 +124,7 @@ export default function Loyalty({ debug }: { debug?: boolean }) {
     <>
       <p className="text-4xl text-secondary">Loyalty Level 🎉</p>
       <div className="w-full max-w-3xl px-24 py-4 mb-32">
-        <Stepper
-          lineClassName="bg-black shadow shadow-white hidden md:block"
-          activeLineClassName="bg-white shadow-lg shadow-white hidden md:block"
-          activeStep={activeStep}
-        >
-          {width >= 718 ? <DesktopView /> : <MobileView />}
-          {/* <LevelOne />
-          <LevelTwo />
-          <LevelThree /> */}
-        </Stepper>
+        {width >= 718 ? <DesktopView /> : <MobileView />}
       </div>
     </>
   );
