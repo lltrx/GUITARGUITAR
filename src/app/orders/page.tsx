@@ -36,7 +36,7 @@ export default function Orders() {
 		const userStored = JSON.parse(localStorage.getItem('user'));
 		if (userStored !== null) {
 			setUser(userStored);
-			console.log('setting user');
+			console.log('setting user', userStored);
 
 			async function fetchData() {
 				console.log(userStored);
@@ -71,6 +71,9 @@ export default function Orders() {
 			/>
 		);
 	});
+
+
+
 
 	return (
 		<>

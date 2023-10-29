@@ -99,7 +99,7 @@ export default function Login() {
         <div className="absolute flex justify-center items-center w-screen h-screen top-0 left-0 z-20">
         <div className="relative flex flex-col w-5/6 sm:2/3 lg:w-1/2 max-w-[500px] h-[400px] items-center justify-center text-white py-16 rounded-3xl">
         <motion.div animate={bgAnimation} layout className="absolute w-1/2 h-1/2 bg-primary" />
-        <div className="absolute w-full h-full bg-primary rounded-3xl shadow-md shadow-white ring-1 ring-blue-gray-500" />
+        <div className="absolute w-full h-full bg-primary rounded-3xl " />
 
           <div className="mx-auto w-full">
             <motion.div animate={imageAnimation} className="absolute w-full flex justify-center">

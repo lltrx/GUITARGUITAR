@@ -72,7 +72,7 @@ export default function OrderCard({
       <div className="flex justify-between mb-4">
         <span className="text-gray-700">Order Placed: {formattedOrderDate}</span>
       </div>
-      <div className="mb-4">
+      <div className="mb-10">
         <span className="text-lg font-bold text-black">Status:</span>
         <span className="text-lg ml-2 text-black">{orderStatus[status]}</span>
         <StepperWithContent status={status} />
